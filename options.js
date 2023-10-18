@@ -155,14 +155,13 @@ function updateCurrentURL() {
 }
 
 saveButton.onclick = function (ev) {
-    setOrigin(serverIpInput.value, serverPortInput.value, getProtocol(), serverPathInput.value, function () {
-        saveBadWords(badWordsFilterTextarea.value, function () {
-            requestPermission(function (granted) {
-                updateLoggedInStatus();
-            });
+    setOrigin(serverIpInput.value, serverPortInput.value, getProtocol(), serverPathInput.value, badWordsFilterTextarea.value, function () {
+        requestPermission(function (granted) {
+            updateLoggedInStatus();
         });
     });
 };
+
 
 function saveBadWords(badWords, callback) {
     chrome.storage.local.set({ badWords: badWords }, function () {
