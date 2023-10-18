@@ -8,54 +8,59 @@
   <title>Yape Options</title>
 </head>
 <body>
-  <div class="text-center h1 m-5">
-    Yape Options
-  </div>
+    <div class="text-center h1 m-5">
+        Yape Options
+    </div>
   <div class="d-flex justify-content-center">
-    <form>
-      <div class="form-group">
-        <label for="serverIp">PyLoad server's host</label>
-        <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="The domain name, IP address or hostname of the PyLoad server"></i>
-        <input type="text" class="form-control" id="serverIp">
-        <div id="serverIpFeedback" class="invalid-feedback">
-          Please provide a valid host
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="serverPort">PyLoad server's port</label>
-        <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="Default ports are 80 for HTTP and 443 HTTPS"></i>
-        <input type="number" class="form-control" id="serverPort">
-        <div id="serverPortFeedback" class="invalid-feedback">
-          Please provide a valid port
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="serverPath">PyLoad server's path</label>
-        <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="The path of the PyLoad server"></i>
-        <input type="text" class="form-control" id="serverPath">
-        <div id="serverPathFeedback" class="invalid-feedback">
-          Please provide a valid path
-        </div>
-      </div>
-      <div class="form-check flex items-center">
-        <input type="checkbox" class="form-check-input" id="useHTTPS">
-        <label class="form-check-label ml-3" for="useHTTPS">Use HTTPS</label>
-      </div>
-      <div class="form-group flex items-center justify-content-center mt-4">
-        <label class="h5">Your PyLoad URL:</label>
-        <div class="flex text-center mt-2">
-          <label class="h6" id="currentURL"></label>
-        </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <div id="loginStatusOK" class="alert alert-success mt-2" hidden>
-          <i class="fa fa-check small mr-3"></i>You are logged in
-        </div>
-        <div id="loginStatusKO" class="alert alert-danger mt-2" hidden>
-          <i class="fa fa-times small mr-3"></i>You are not logged in
-        </div>
-      </div>
-    </form>
+      <form>
+          <div class="form-group">
+              <label for="serverIp">PyLoad server's host</label>
+              <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="The domain name, IP address or hostname of the PyLoad server"></i>
+              <input type="text" class="form-control" id="serverIp">
+              <div id="serverIpFeedback" class="invalid-feedback">
+                  Please provide a valid host
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="serverPort">PyLoad server's port</label>
+              <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="Default ports are 80 for HTTP and 443 HTTPS"></i>
+              <input type="number" class="form-control" id="serverPort">
+              <div id="serverPortFeedback" class="invalid-feedback">
+                  Please provide a valid port
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="serverPath">PyLoad server's path</label>
+              <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="The path of the PyLoad server"></i>
+              <input type="text" class="form-control" id="serverPath">
+              <div id="serverPathFeedback" class="invalid-feedback">
+                  Please provide a valid path
+              </div>
+          </div>
+          <div class="form-check flex items-center">
+              <input type="checkbox" class="form-check-input" id="useHTTPS">
+              <label class="form-check-label ml-3" for="useHTTPS">Use HTTPS</label>
+          </div>
+          <div class="form-group">
+              <label for="badWordsFilter">Bad Words Filter</label>
+              <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="Add words to filter from filenames. One word per line."></i>
+              <textarea class="form-control" id="badWordsFilter" rows="5" style="resize: vertical;"></textarea>
+          </div>
+          <div class="form-group flex items-center justify-content-center mt-4">
+              <label class="h5">Your PyLoad URL:</label>
+              <div class="flex text-center mt-2">
+                  <label class="h6" id="currentURL"></label>
+              </div>
+          </div>
+          <div class="d-flex justify-content-center">
+              <div id="loginStatusOK" class="alert alert-success mt-2" hidden>
+                  <i class="fa fa-check small mr-3"></i>You are logged in
+              </div>
+              <div id="loginStatusKO" class="alert alert-danger mt-2" hidden>
+                  <i class="fa fa-times small mr-3"></i>You are not logged in
+              </div>
+          </div>
+      </form>
   </div>
   <div class="d-flex justify-content-center align-items-center" id="spinnerDiv">
   </div>

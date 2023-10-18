@@ -13,6 +13,8 @@ let saveButton = document.getElementById('saveButton');
 let loginButton = document.getElementById('loginButton');
 let loginButtonModal = document.getElementById('loginButtonModal');
 let alertDanger = document.getElementById('alertDanger');
+let badWordsFilterTextarea = document.getElementById('badWordsFilter');
+
 
 let loginModal = $('#loginModal');
 
@@ -152,13 +154,21 @@ function updateCurrentURL() {
     currentURL.innerHTML = `${useHTTPSInput.checked ? 'https' : 'http'}://${serverIpInput.value}${portString}${serverPathInput.value}`;
 }
 
-saveButton.onclick = function(ev) {
-    setOrigin(serverIpInput.value, serverPortInput.value, getProtocol(), serverPathInput.value, function() {
-        requestPermission(function(granted) {
-            updateLoggedInStatus();
+saveButton.onclick = function (ev) {
+    setOrigin(serverIpInput.value, serverPortInput.value, getProtocol(), serverPathInput.value, function () {
+        saveBadWords(badWordsFilterTextarea.value, function () {
+            requestPermission(function (granted) {
+                updateLoggedInStatus();
+            });
         });
     });
 };
+
+function saveBadWords(badWords, callback) {
+    chrome.storage.local.set({ badWords: badWords }, function () {
+        if (callback) callback();
+    });
+}
 
 loginButton.onclick = function(ev) {
     loginModal.modal('show');
@@ -180,11 +190,12 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-pullStoredData(function() {
+pullStoredData(function () {
     serverIpInput.value = serverIp;
     serverPortInput.value = serverPort;
     serverPathInput.value = serverPath;
     useHTTPSInput.checked = serverProtocol === 'https';
+    badWordsFilterTextarea.value = badWords || '';  // Set bad words from storage
 
     updateCurrentURL();
 
@@ -192,6 +203,9 @@ pullStoredData(function() {
     serverPortInput.oninput = requireSaving;
     useHTTPSInput.oninput = requireSaving;
     serverPathInput.oninput = requireSaving;
+    badWordsFilterTextarea.oninput = requireSaving;  // Make sure changes to bad words also trigger saving
 
     updateLoggedInStatus();
 });
+
+

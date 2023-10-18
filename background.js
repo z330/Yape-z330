@@ -59,11 +59,6 @@ const sendToast = function (tab, type, message) {
     });
 }
 
-const removeWords = [ // should be moved to the config screen to allow users to add words to exlude from filenames
-    "[Bitsearch.to]",
-    // Bad Words List
-];
-
 
 const parseNameFromUrl = (url) => {
     // Extract name from dn var in magnet link
@@ -80,7 +75,7 @@ const parseNameFromUrl = (url) => {
     return url.split('/').pop();
 }
 
-const cleanFileName = (name) => {
+const cleanFileName = (name, removeWords) => {
     removeWords.forEach(word => {
         name = name.replace(new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '');
     });
@@ -95,8 +90,8 @@ const cleanFileName = (name) => {
     return cleanName.replace(/[^a-zA-Z0-9._-]/g, '_').replace(/^_+|_+$/g, ''); 
 }
 
-const downloadLink = function (info, tab) {
-    const fileName = cleanFileName(parseNameFromUrl(info.linkUrl));
+const downloadLink = function (info, tab, removeWords) {
+    const fileName = cleanFileName(parseNameFromUrl(info.linkUrl), removeWords);
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
 
@@ -144,12 +139,14 @@ chrome.runtime.onMessage.addListener(data => {
     }
 });
 
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if ('yape' === info.menuItemId) {
         loadToastr(tab, function () {
-            pullStoredData(function () {
+            pullStoredData(function (storedData) { 
+                const removeWords = storedData.badWords.split("\n").filter(Boolean);
                 sendToast(tab, 'info', 'Requesting download...');
-                downloadLink(info, tab);
+                downloadLink(info, tab, removeWords);
             });
         });
     }

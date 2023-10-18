@@ -5,3 +5,8 @@
 form {
     min-width: 300px;
 }
+
+#badWordsFilter {
+    overflow-y: auto;
+    max-height: 200px; 
+}
